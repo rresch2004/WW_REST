@@ -24,10 +24,12 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
-Route::put('/users/{userId}/flames', [UserController::class, 'updateFlames']);
-
+Route::middleware('auth:api')->put('/users/{Id}/flames', [UserController::class, 'updateCurrentUserFlames']);
 Auth::routes();
+
+Route::get('/checkUserExists/{username}', [UserController::class, 'checkUserExists']);
 
 Route::middleware('api')->group(function () {
     Route::get('/api/users', [UserController::class, 'index']);
+    Route::get('/api/user', [UserController::class, 'getCurrentUser']);
 });

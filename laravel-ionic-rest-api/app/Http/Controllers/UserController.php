@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Log;
 class UserController extends Controller
 {
     public function index()
@@ -18,6 +18,7 @@ class UserController extends Controller
 
     public function updateFlames(Request $request, $userId)
     {
+
         $request->validate([
             'flames' => 'required|integer',
         ]);
@@ -28,5 +29,17 @@ class UserController extends Controller
         $user->save();
 
         return response()->json(['message' => 'Flames erfolgreich aktualisiert'], 200);
+    }
+
+    public function getCurrentUser(Request $request)
+    {
+        return $request->user();
+    }
+
+    public function checkUserExists($username)
+    {
+        $userExists = User::where('username', $username)->exists();
+
+        return response()->json($userExists);
     }
 }
