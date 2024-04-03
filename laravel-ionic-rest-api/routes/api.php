@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group([
+    'middleware' => 'api',
+    // 'prefix' => 'auth'
+], function($router) {
+    Route::get('users', [UserController::class, 'index']);
+    Route::get('user', [UserController::class, 'getCurrentUser']);
+
+    Route::put('users/{id}/flames', [UserController::class, 'updateFlames']);
+
+    // gleiche Methode?
+    // Route::post('users/{id}/flames', [UserController::class, 'updateFlames']);
 });

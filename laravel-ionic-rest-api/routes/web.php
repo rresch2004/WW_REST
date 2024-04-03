@@ -25,14 +25,9 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 
-Route::middleware('auth:api')->put('/users/{id}/flames', [UserController::class, 'updateFlames']);
 
-Route::middleware('auth:api')->post('/users/{id}/flames', [UserController::class, 'updateFlames']);
 Auth::routes();
 
 Route::get('/checkUserExists/{username}', [UserController::class, 'checkUserExists']);
 
-Route::middleware('api')->group(function () {
-    Route::get('/api/users', [UserController::class, 'index']);
-    Route::get('/api/user', [UserController::class, 'getCurrentUser']);
-});
+
