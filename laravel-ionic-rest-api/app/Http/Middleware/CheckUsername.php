@@ -16,10 +16,6 @@ class CheckUsername
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check()) {
-            return $next($request);
-        }
-
-        return response()->json(['error' => 'Unauthorized'], 403);
+        return $next($request);
     }
 }

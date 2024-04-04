@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware('guest')->get('/checkUserExists/{username}', [UserController::class, 'checkUserExists']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -27,7 +29,6 @@ Route::group([
     Route::get('user', [UserController::class, 'getCurrentUser']);
 
     Route::put('users/{id}/flames', [UserController::class, 'updateFlames']);
+    Route::post('users/{id}/flames', [UserController::class, 'updateFlames']);
 
-    // gleiche Methode?
-    // Route::post('users/{id}/flames', [UserController::class, 'updateFlames']);
 });
