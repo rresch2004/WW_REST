@@ -25,9 +25,8 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('auth');
 
-
 Auth::routes();
 
-Route::get('/checkUserExists/{username}', [UserController::class, 'checkUserExists']);
+Route::get('/checkUserExists/{username}', [UserController::class, 'checkUserExists'])->middleware('checkUsername');
 
 
